@@ -1,0 +1,4 @@
+host: locahost
+port: 5432
+database: ticketbook
+password: Bips@1996
