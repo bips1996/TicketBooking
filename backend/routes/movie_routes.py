@@ -1,13 +1,4 @@
-from ast import Param
-from datetime import datetime
-import sys
-import os
-from xmlrpc.client import DateTime
-import sqlalchemy
-
-from fastapi import FastAPI ,Depends,BackgroundTasks,Request,APIRouter
-from pydantic import BaseModel 
-from typing import Optional,List
+from fastapi import Depends,APIRouter
 from sqlalchemy.orm import Session
 from utils.database.connector import SessionLocal,engine,Base
 from models.schema.models import *
@@ -28,7 +19,7 @@ Base.metadata.create_all(bind=engine)
 
 @router.post("/Create_Movie")
 def create_one_movie_record(params: Movie, db : Session = Depends(get_db)): 
-    movie = MovieDetails
+    movie = MovieDetails()
     movie.title = params.title
     movie.release_date =params.release_date
     db.add(movie)
@@ -40,4 +31,4 @@ def create_one_movie_record(params: Movie, db : Session = Depends(get_db)):
 
 @router.get('/all_movies')
 def get_movies(db: Session= Depends(get_db)):
-    return db.query(User).all()
+    return db.query(MovieDetails).all()

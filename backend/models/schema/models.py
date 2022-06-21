@@ -11,6 +11,7 @@ class Tickets(Base):
     created_date = Column(DateTime)
     movie_time = Column(DateTime)
     ticket_price = Column(Float)
+    no_of_tickets=Column(Integer)
 
 class UserDetails(Base):
     __tablename__="user_details"

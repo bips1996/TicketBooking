@@ -18,6 +18,7 @@ class MovieTicket(BaseModel):
     created_date: datetime
     movie_time: datetime
     ticket_price: float
+    no_of_tickets:int
     class Config:
         orm_mode = True
 
@@ -27,5 +28,5 @@ class User(BaseModel):
 
 class Movie(BaseModel):
     title:str
-    release_date:str
+    release_date:datetime
 

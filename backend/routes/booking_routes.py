@@ -1,12 +1,7 @@
 from datetime import datetime
-import sys
-import os
-from xmlrpc.client import DateTime
 import sqlalchemy
 
-from fastapi import FastAPI ,Depends,BackgroundTasks,Request,APIRouter
-from pydantic import BaseModel 
-from typing import Optional,List
+from fastapi import Depends,APIRouter
 from sqlalchemy.orm import Session
 from utils.database.connector import SessionLocal,engine,Base
 from models.schema.models import *
@@ -28,11 +23,12 @@ Base.metadata.create_all(bind=engine)
 @router.post("/Create_Ticket")
 def create_record(ticket_params: MovieTicket, db : Session = Depends(get_db)): 
     ticket = Tickets()
-    ticket.customer = MovieTicket.customer
-    ticket.movie = MovieTicket.movie
-    ticket.ticket_price = MovieTicket.ticket_price
-    ticket.movie_time = MovieTicket.movie_time
-    ticket.created_date = MovieTicket.created_date
+    ticket.customer = ticket_params.customer
+    ticket.movie = ticket_params.movie
+    ticket.ticket_price = ticket_params.ticket_price
+    ticket.movie_time = ticket_params.movie_time
+    ticket.created_date = ticket_params.created_date
+    ticket.no_of_tickets = ticket_params.no_of_tickets
     db.add(ticket)
     db.commit()
     return{
@@ -40,15 +36,20 @@ def create_record(ticket_params: MovieTicket, db : Session = Depends(get_db)):
         "messege": "One ticket-record pushed"
     }
 
+@router.get("/all_tickets")
+def get_all_tickets(db : Session =  Depends(get_db)):
+    return db.query(Tickets).all()
+
 @router.get("/price_by_month/{first_date}/{last_date}")
 async def price_by_month(first_date:datetime,last_date:datetime,db : Session =  Depends(get_db)):
     try:
         sql_query = sqlalchemy.text(f'''
-        SELECT TO_CHAR(created_date, 'month') AS "month", SUM(ticket_price::numeric) AS "summary_profit"
-        FROM public."TicketStatus"
+        SELECT TO_CHAR(created_date, 'month') AS "month", SUM(no_of_tickets*ticket_price::numeric) AS "summary_profit"
+        FROM public."tickets"
         WHERE created_date 
         BETWEEN Date('{first_date}') AND Date('{last_date}')
-        GROUP BY month ;
+        GROUP BY month 
+        ORDER BY month asc;
         ''')
         result = db.execute(sql_query)
         result_as_list = result. fetchall()
@@ -60,11 +61,12 @@ async def price_by_month(first_date:datetime,last_date:datetime,db : Session =  
 async def price_by_month(first_date:datetime,last_date:datetime,db : Session =  Depends(get_db)):
     try:
         sql_query = sqlalchemy.text(f'''
-        SELECT TO_CHAR(created_date, 'month') AS "month", SUM(ticket_price::numeric) AS "summary_profit"
-        FROM public."TicketStatus"
+        SELECT TO_CHAR(created_date, 'month') AS "month", SUM(no_of_tickets) AS "summary_visits"
+        FROM public."tickets"
         WHERE created_date 
         BETWEEN Date('{first_date}') AND Date('{last_date}')
-        GROUP BY month ;
+        GROUP BY month 
+        ORDER BY month asc;
         ''')
         result = db.execute(sql_query)
         result_as_list = result. fetchall()
