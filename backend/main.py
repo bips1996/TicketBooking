@@ -1,13 +1,18 @@
 import sys,os
 from fastapi.routing import APIRouter
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends
+from fastapi.responses import JSONResponse
+
+from starlette.requests import Request
+from starlette.middleware.cors import CORSMiddleware
 
 from routes.booking_routes import router as booking_router
 from routes.movie_routes import router as movie_router
 from routes.user_routes import router as user_router
 
+from utils.security.autherization import token_validation
+
 from config.config import API_PREFIX, DEBUG, PROJECT_NAME, VERSION,ALLOWED_HOSTS
-from starlette.middleware.cors import CORSMiddleware
 
 def get_application() -> FastAPI:
     application = FastAPI(title=PROJECT_NAME, debug=DEBUG, version=VERSION)
