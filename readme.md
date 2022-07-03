@@ -1,37 +1,45 @@
 # Movie Ticket Booking apis
 
-This is a simple Fastapi-Postgres based microservice layer for movie ticket booking and analyser apis.
+This is a simple Express-Postgres based microservice layer for movie ticket booking and analyser apis.
+
+## requirements
+
+- `node-v14.*`
+- `postgres-v10+`
 
 ## Set up
 
 ### step -1
 
-install python dependencies
-go to `/backend/dependencies`
+install `node` dependecies
+go to `/backend/` and do
 
 ```sh
-cd /backend/dependencies/
-pip install -m requirements.txt
+npm install
 ```
 
 ### Step-2 Database set up
 
-- Bring up a fresh postgres database using dump file that is present in `/backend/util/database/`
-- edit the config file that is present at /backend/config/db_config.py
+- Bring up a fresh postgres database using dump file that is present in `/backend/database/dump/`
+- edit the `.env` and add the db credentials file at `/backend/.env`
 
 ### Step-3
 
 Bring up the server using cmd
 
 ```sh
-uvicorn main:app --reload --port=8000
+nodemon api.js
+or
+npm api.js
 ```
 
 ### Step-4
 
-Visit `localhost:8000/docs` for api document and testing
+Visit `localhost:3000` for details and api-docs(`localhost:3000/api-docs`)
 
-##Further improvements
+## Further improvements
 
-- Though I have added the autherization code, but commented that as it is not working
-- Authentication and Dockerization
+- autherization and authentication
+- bring up http models(for request/response parameters and validations)
+- introduction of ORM models
+- Dockerization
