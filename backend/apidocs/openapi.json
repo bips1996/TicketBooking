@@ -1,0 +1,299 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Book My Movie api collection",
+        "description": "a movie ticket booking api collection for Surreal Assessment",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/Create_Ticket": {
+            "post": {
+                "tags": ["Booking"],
+                "summary": "Create Record",
+                "operationId": "create_record_api_v1_Create_Ticket_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/MovieTicket" }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/all_tickets": {
+            "get": {
+                "tags": ["Booking"],
+                "summary": "Get All Tickets",
+                "operationId": "get_all_tickets_api_v1_all_tickets_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    }
+                }
+            }
+        },
+        "/api/v1/price_by_month/{first_date}/{last_date}": {
+            "get": {
+                "tags": ["Booking"],
+                "summary": "Price By Month",
+                "operationId": "price_by_month_api_v1_price_by_month__first_date___last_date__get",
+                "parameters": [{
+                        "required": true,
+                        "schema": {
+                            "title": "First Date",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "name": "first_date",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Last Date",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "name": "last_date",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/people_visited/month/{first_date}/{last_date}": {
+            "get": {
+                "tags": ["Booking"],
+                "summary": "Price By Month",
+                "operationId": "price_by_month_api_v1_people_visited_month__first_date___last_date__get",
+                "parameters": [{
+                        "required": true,
+                        "schema": {
+                            "title": "First Date",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "name": "first_date",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Last Date",
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "name": "last_date",
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/Create_Movie": {
+            "post": {
+                "tags": ["Movie"],
+                "summary": "Create One Movie Record",
+                "operationId": "create_one_movie_record_api_v1_Create_Movie_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/Movie" }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/all_movies": {
+            "get": {
+                "tags": ["Movie"],
+                "summary": "Get Movies",
+                "operationId": "get_movies_api_v1_all_movies_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    }
+                }
+            }
+        },
+        "/api/v1/Create_User": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create Record",
+                "operationId": "create_record_api_v1_Create_User_post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": { "$ref": "#/components/schemas/User" }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/all_users": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Get Users",
+                "operationId": "get_users_api_v1_all_users_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": { "application/json": { "schema": {} } }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "detail": {
+                        "title": "Detail",
+                        "type": "array",
+                        "items": { "$ref": "#/components/schemas/ValidationError" }
+                    }
+                }
+            },
+            "Movie": {
+                "title": "Movie",
+                "required": ["title", "release_date"],
+                "type": "object",
+                "properties": {
+                    "title": { "title": "Title", "type": "string" },
+                    "release_date": {
+                        "title": "Release Date",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "MovieTicket": {
+                "title": "MovieTicket",
+                "required": [
+                    "customer",
+                    "movie",
+                    "created_date",
+                    "movie_time",
+                    "ticket_price",
+                    "no_of_tickets"
+                ],
+                "type": "object",
+                "properties": {
+                    "customer": { "title": "Customer", "type": "integer" },
+                    "movie": { "title": "Movie", "type": "integer" },
+                    "created_date": {
+                        "title": "Created Date",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "movie_time": {
+                        "title": "Movie Time",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "ticket_price": { "title": "Ticket Price", "type": "number" },
+                    "no_of_tickets": { "title": "No Of Tickets", "type": "integer" }
+                }
+            },
+            "User": {
+                "title": "User",
+                "required": ["name", "email"],
+                "type": "object",
+                "properties": {
+                    "name": { "title": "Name", "type": "string" },
+                    "email": { "title": "Email", "type": "string" }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": ["loc", "msg", "type"],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "title": "Location",
+                        "type": "array",
+                        "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] }
+                    },
+                    "msg": { "title": "Message", "type": "string" },
+                    "type": { "title": "Error Type", "type": "string" }
+                }
+            }
+        }
+    }
+}
