@@ -30,7 +30,7 @@ Bring up the server using cmd
 ```sh
 nodemon api.js
 or
-npm api.js
+node api.js
 ```
 
 ### Step-4
